@@ -1,0 +1,57 @@
+#Insert a comment block
+snippet comme "Comment Section"
+" ==${1:Comment for this section}== "
+endsnippet
+
+
+#define a child class of nn.Module
+snippet dlmodule "nn.Module"
+class ${1:ModuleName}(nn.Module):
+    def __init__(self, ${3:params}, **kwargs):
+        super(${2:ModuleName}).__init__(**kwargs)
+          
+    def forward(self, x):
+        ${4:pass}
+endsnippet
+
+
+#define a encoder_decoder
+snippet EDmodule "code block of Encoder_Decoder structure"
+class Encoder(nn.Module):
+    def __init__(self,  **kwargs):
+        super(Encoder).__init__(**kwargs)
+
+    def forward(self, x):
+        raise NotImplementedError
+
+
+class Decoder(nn.Module):
+    def __init__(self, **kwargs):
+        super(Decoder).__init__(**kwargs)
+
+    def init_state(self, enc_outputs, *args):
+        raise NotImplementedError
+
+    def forward(self, x, state):
+        raise NotImplementedError
+
+
+class Encoder_Decoder(nn.Module):
+    def __init__(self,  **kwargs):
+        super(Encoder_Decoder).__init__(**kwargs)
+        self.encoder = encoder
+        self.decoder = decoder
+
+    def forward(self, enc_x, dec_x, *args):
+        enc_outputs = self.encoder(enc_x, *args)
+        dec_state = self.decoder.init_state(enc_outputs, *args)
+        return self.decoder(dec_x, dec_state)
+endsnippet
+
+
+#if __name__ == '__main__'
+snippet ifname "if __name__ == '__main__'"
+if __name__ == '__main__'
+		main()
+endsnippet
+
