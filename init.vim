@@ -238,7 +238,7 @@ Plug 'wincent/terminus'
 "other util
 Plug 'makerj/vim-pdf'
 Plug 'junegunn/goyo.vim'
-
+Plug 'mhinz/vim-startify'
 call plug#end()
 
 "设置主题"
@@ -326,18 +326,18 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " coc-translator
-nmap ts <Plug>(coc-translator-p)
+nmap <silent><LEADER>t <Plug>(coc-translator-p)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> <LEADER>d :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
  if (index(['vim','help'], &filetype) >= 0)
- ""execute 'h '.expand('<cword>')
+   execute 'h '.expand('<cword>')
  elseif (coc#rpc#ready())
- ""call CocActionAsync('doHover')
+   call CocActionAsync('doHover')
  else
- ""execute '!' . &keywordprg . " " . expand('<cword>')
+   execute '!' . &keywordprg . " " . expand('<cword>')
  endif
 endfunction
 " Symbol renaming
@@ -361,17 +361,6 @@ let g:UltiSnipsJumpForwardTrigger="<c-e>"
 let g:UltiSnipsJumpBackwardTrigger="<c-n>"
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips', 'UltiSnips']
 
-" ===
-" === ale
-" ===
-"let g:airline#extensions#ale#enabled = 1
-"let g:ale_linters_explicit = 1
-"" Write this in your vimrc file
-"let g:ale_lint_on_text_changed = 'never'
-"let g:ale_lint_on_save = 1
-"let g:ale_lint_on_insert_leave = 1
-"" if you don't want linters to run on opening a file
-"let g:ale_lint_on_enter = 0
 
 " ===
 " === MarkdownPreview
@@ -455,18 +444,6 @@ let g:VM_maps["Redo"]               = '<C-r>'
 let g:undotree_DiffAutoOpen = 0
 map L :UndotreeToggle<CR>
 
-" ===
-" === Tanslator
-" ===
-" Echo translation in the cmdline
-"nmap <silent><Leader>t :Translate<CR>
-"vmap <silent><Leader>t :TranslateV<CR>
-"" Display translation in a window
-"" Replace the text with translation
-""nmap <silent><Leader>z :TranslateR<CR>
-""vmap <silent><Leader>z :TranslateRV<CR>
-"" Translate the text in clipboard
-"nmap <silent><Leader>x :TranslateX<CR>
 
 " Compile function,press <F5> to run code
 " Compile function
