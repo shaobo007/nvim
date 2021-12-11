@@ -131,9 +131,8 @@ noremap tx :r !figlet
 "turnoff highlight"
 noremap <LEADER><CR> :nohlsearch<CR>
 
-"open a terminal window
-noremap <LEADER>/ :set splitbelow<CR>:term<CR>
-
+"open a terminal windownoremap <LEADER>/ :set splitbelow<CR>:sp<CR>:res -6:<CR>term<CR>
+noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:res -5<CR>:term<CR>i
 "edit config file anywhere
 noremap <LEADER>e :tabe<CR>:e ~/.config/nvim/init.vim<CR>
 noremap <LEADER>ra :tabe<CR>:e ~/.config/ranger/rc.conf<CR>
@@ -141,9 +140,6 @@ noremap <LEADER>rc :tabe<CR>:e ~/.config/fish/config.fish<CR>
 
 " Press space twice to jump to the next '<+++>' and edit it
 noremap <LEADER>z <Esc>/<+++><CR>:nohlsearch<CR>c5l
-
-"git 
-nnoremap <C-g> :!lazygit<CR><CR>
 
 " Spelling Check with <space>sc
 map <LEADER>ss :set spell!<CR>
@@ -187,21 +183,21 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 "Plug 'Valloric/YouCompleteMe'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Error checking
-Plug 'w0rp/ale'
+"Error checking
+"Plug 'w0rp/ale'
 Plug 'vim-autoformat/vim-autoformat'
-" Undo Tree
+"Undo Tree
 Plug 'mbbill/undotree/'
 
 " Other visual enhancement
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'itchyny/vim-cursorword'
+"Plug 'itchyny/vim-cursorword'
 
 " Git
 Plug 'rhysd/conflict-marker.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
-
+Plug 'kdheepak/lazygit.nvim'
 " HTML, CSS, JavaScript, PHP, JSON, etc.
 "Plug 'elzr/vim-json'
 "Plug 'hail2u/vim-css3-syntax'
@@ -212,11 +208,11 @@ Plug 'mhinz/vim-signify'
 
 " Python
 Plug 'vim-scripts/indentpython.vim'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-" Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
+"Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
 "Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
-"Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 "Plug 'plytophogy/vim-virtualenv', { 'for' :['python', 'vim-plug'] }
 "Plug 'tweekmonster/braceless.vim', { 'for' :['python', 'vim-plug'] }
 "Plug 'cjrh/vim-conda'
@@ -256,7 +252,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 0
 " ===
 " === NERDTree
 " ===
-map tt :NERDTreeToggle<CR>
+map <silent>tt :NERDTreeToggle<CR>
 "let NERDTreeMapOpenExpl = ""
 "let NERDTreeMapUpdir = ""
 let NERDTreeMapUpdirKeepOpen = "l"
@@ -271,14 +267,14 @@ let NERDTreeMapChangeRoot = "y"
 " ==
 " == python-format
 " ==
-let g:formatter_yapf_style = 'google'
-noremap <F3> :Autoformat<CR>
-autocmd FileType vim,tex,markdown let b:autoformat_autoindent=0
+"let g:formatter_yapf_style = 'google'
+"noremap <F3> :Autoformat<CR>
+"autocmd FileType vim,tex,markdown let b:autoformat_autoindent=0
 
 " ==
 " == NERDTree-git
 " ==
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
   \ "Modified"  : "✹",
   \ "Staged"    : "✚",
   \ "Untracked" : "✭",
@@ -295,7 +291,9 @@ let g:NERDTreeIndicatorMapCustom = {
 " ===
 let g:coc_global_extensions = [
   \ 'coc-vimlsp',
-  \ 'coc-python',
+  \ 'coc-marketplace',
+  \ 'coc-json',
+  \ 'coc-jedi',
 	\ 'coc-diagnostic',
 	\ 'coc-gitignore',
 	\ 'coc-prettier',
@@ -315,15 +313,44 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <C-o> coc#refresh()
+"jump to the next or previous error
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+" coc-translator
+nmap ts <Plug>(coc-translator-p)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> <LEADER>d :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+ if (index(['vim','help'], &filetype) >= 0)
+ ""execute 'h '.expand('<cword>')
+ elseif (coc#rpc#ready())
+ ""call CocActionAsync('doHover')
+ else
+ ""execute '!' . &keywordprg . " " . expand('<cword>')
+ endif
+endfunction
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+" coc-snippets
+imap <C-l> <Plug>(coc-snippets-expand)
+vmap <C-e> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<c-e>'
+let g:coc_snippet_prev = '<c-n>'
+imap <C-e> <Plug>(coc-snippets-expand-jump)
 
 " ===
 " === Snippets
@@ -337,14 +364,14 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips', 'UltiSnips']
 " ===
 " === ale
 " ===
-let g:airline#extensions#ale#enabled = 1
-let g:ale_linters_explicit = 1
-" Write this in your vimrc file
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_insert_leave = 1
-" if you don't want linters to run on opening a file
-let g:ale_lint_on_enter = 0
+"let g:airline#extensions#ale#enabled = 1
+"let g:ale_linters_explicit = 1
+"" Write this in your vimrc file
+"let g:ale_lint_on_text_changed = 'never'
+"let g:ale_lint_on_save = 1
+"let g:ale_lint_on_insert_leave = 1
+"" if you don't want linters to run on opening a file
+"let g:ale_lint_on_enter = 0
 
 " ===
 " === MarkdownPreview
@@ -377,12 +404,22 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 " ===
 " === Python-syntax
 " ===
-let g:python_highlight_all = 1
+"let g:python_highlight_all = 1
 
 " ===
 " === goyo
 " ===
 noremap <LEADER>gy :Goyo<CR>
+
+
+" ===
+" === lazygit.nvim
+" ===
+noremap <c-g> :LazyGit<CR>
+let g:lazygit_floating_window_winblend = 0 " transparency of floating window
+let g:lazygit_floating_window_scaling_factor = 1.0 " scaling factor for floating window
+let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
+let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
 
 
 " ===
@@ -422,14 +459,14 @@ map L :UndotreeToggle<CR>
 " === Tanslator
 " ===
 " Echo translation in the cmdline
-nmap <silent><Leader>t :Translate<CR>
-vmap <silent><Leader>t :TranslateV<CR>
-" Display translation in a window
-" Replace the text with translation
-"nmap <silent><Leader>z :TranslateR<CR>
-"vmap <silent><Leader>z :TranslateRV<CR>
-" Translate the text in clipboard
-nmap <silent><Leader>x :TranslateX<CR>
+"nmap <silent><Leader>t :Translate<CR>
+"vmap <silent><Leader>t :TranslateV<CR>
+"" Display translation in a window
+"" Replace the text with translation
+""nmap <silent><Leader>z :TranslateR<CR>
+""vmap <silent><Leader>z :TranslateRV<CR>
+"" Translate the text in clipboard
+"nmap <silent><Leader>x :TranslateX<CR>
 
 " Compile function,press <F5> to run code
 " Compile function
@@ -450,7 +487,7 @@ func! CompileRunGcc()
   elseif &filetype == 'python'
   set splitbelow
   :sp
-  :res -5
+  :res -10
   :term python %
   elseif &filetype == 'html'
     exec "!firefox % &"
