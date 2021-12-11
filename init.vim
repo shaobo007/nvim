@@ -38,13 +38,15 @@ filetype plugin indent on
 set mouse=a
 set encoding=utf-8
 let &t_ut=''
+"set tab
 set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+
 set list
 set listchars=tab:▸\ ,trail:▫
-set scrolloff=5
+set scrolloff=8
 set tw=0
 set indentexpr=
 set backspace=indent,eol,start
@@ -54,6 +56,11 @@ set laststatus=2
 set autochdir
 set ttyfast "should make scrolling faster
 set lazyredraw "same as above
+set updatetime=100
+set colorcolumn=100
+set shortmess+=c
+set inccommand=split
+set completeopt=longest,noinsert,menuone,noselect,preview
 silent !mkdir -p $HOME/.config/nvim/tmp/backup
 silent !mkdir -p $HOME/.config/nvim/tmp/undo
 "silent !mkdir -p $HOME/.config/nvim/tmp/sessions
@@ -184,20 +191,19 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "Error checking
-"Plug 'w0rp/ale'
 Plug 'vim-autoformat/vim-autoformat'
 "Undo Tree
 Plug 'mbbill/undotree/'
 
 " Other visual enhancement
 Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'itchyny/vim-cursorword'
 
 " Git
 Plug 'rhysd/conflict-marker.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'kdheepak/lazygit.nvim'
+
 " HTML, CSS, JavaScript, PHP, JSON, etc.
 "Plug 'elzr/vim-json'
 "Plug 'hail2u/vim-css3-syntax'
@@ -213,9 +219,8 @@ Plug 'honza/vim-snippets'
 "Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
 "Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
-"Plug 'plytophogy/vim-virtualenv', { 'for' :['python', 'vim-plug'] }
 "Plug 'tweekmonster/braceless.vim', { 'for' :['python', 'vim-plug'] }
-"Plug 'cjrh/vim-conda'
+
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
@@ -227,7 +232,7 @@ Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or 
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'junegunn/vim-peekaboo'
-Plug 'voldikss/vim-translator'
+"Plug 'voldikss/vim-translator'
 
 " Other visual enhancement
 "Plug 'luochen1990/rainbow'
@@ -237,7 +242,7 @@ Plug 'wincent/terminus'
 
 "other util
 Plug 'makerj/vim-pdf'
-Plug 'junegunn/goyo.vim'
+"Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
 call plug#end()
 
@@ -346,20 +351,11 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 " coc-snippets
-imap <C-l> <Plug>(coc-snippets-expand)
+"imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-e> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-e>'
-let g:coc_snippet_prev = '<c-n>'
+let g:coc_snippet_prev = '<c-w>'
 imap <C-e> <Plug>(coc-snippets-expand-jump)
-
-" ===
-" === Snippets
-" ===
-inoremap <c-e> <nop>
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-e>"
-let g:UltiSnipsJumpBackwardTrigger="<c-n>"
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips', 'UltiSnips']
 
 
 " ===
@@ -394,11 +390,6 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 " === Python-syntax
 " ===
 "let g:python_highlight_all = 1
-
-" ===
-" === goyo
-" ===
-noremap <LEADER>gy :Goyo<CR>
 
 
 " ===
