@@ -462,10 +462,10 @@ func! CompileRunGcc()
   elseif &filetype == 'sh'
     :!time bash %
   elseif &filetype == 'python'
-  set splitbelow
-  :sp
-  :res -10
-  :term python %
+    set splitbelow
+    :sp
+    :res -10
+    :term python %
   elseif &filetype == 'html'
     exec "!firefox % &"
   elseif &filetype == 'markdown'
