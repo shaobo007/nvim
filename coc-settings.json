@@ -1,0 +1,10 @@
+{
+  "coc.preferences.extensionUpdateCheck": "weekly",
+  "python.pythonPath": "~/.myScript/env.sh",
+  "snippets.ultisnips.directories": [
+    "Ultisnips",
+    "$HOME/.config/nvim/Ultisnips/",
+    "$HOME/.config/nvim/plugged/vim-snippets/UltiSnips/"
+  ],
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "html", "json"]
+}
