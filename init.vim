@@ -128,15 +128,13 @@ noremap K 5k
 " Copy to system clipboard
 vnoremap Y "+y
 noremap P "+gp
-" Indentation
-"nnoremap < <<
-"nnoremap > >>
+inoremap <silent><C-v> <Esc>"+gpa
 
 "figlet"
 noremap tx :r !figlet
 
 "turnoff highlight"
-noremap <LEADER><CR> :nohlsearch<CR>
+noremap <silent><LEADER><CR> :nohlsearch<CR>
 
 "open a terminal windownoremap <LEADER>/ :set splitbelow<CR>:sp<CR>:res -6:<CR>term<CR>
 noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:res -5<CR>:term<CR>i
@@ -213,11 +211,11 @@ Plug 'kdheepak/lazygit.nvim'
 "Plug 'mattn/emmet-vim'
 
 " Python
-Plug 'vim-scripts/indentpython.vim'
+"Plug 'vim-scripts/indentpython.vim'
 "Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 "Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
-"Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
+Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 "Plug 'tweekmonster/braceless.vim', { 'for' :['python', 'vim-plug'] }
 
@@ -235,13 +233,17 @@ Plug 'junegunn/vim-peekaboo'
 "Plug 'voldikss/vim-translator'
 
 " Other visual enhancement
-"Plug 'luochen1990/rainbow'
+Plug 'luochen1990/rainbow'
 "Plug 'mg979/vim-xtabline'
 Plug 'ryanoasis/vim-devicons'  "nerdtree文件类型图标
 Plug 'wincent/terminus'
 
+" Vim Applications
+Plug 'itchyny/calendar.vim'
+
 "other util
 Plug 'makerj/vim-pdf'
+Plug 'liuchengxu/vista.vim'
 "Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
 call plug#end()
@@ -357,6 +359,32 @@ let g:coc_snippet_next = '<c-e>'
 let g:coc_snippet_prev = '<c-w>'
 imap <C-e> <Plug>(coc-snippets-expand-jump)
 
+
+" ===
+" === Vista.vim
+" ===
+noremap <LEADER>v :Vista!!<CR>
+noremap <c-t> :silent! Vista finder coc<CR>
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'coc'
+let g:vista_fzf_preview = ['right:50%']
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+"function! NearestMethodOrFunction() abort
+  "return get(b:, 'vista_nearest_method_or_function', '')
+"endfunction
+"set statusline+=%{NearestMethodOrFunction()}
+"autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+let g:scrollstatus_size = 15
+
+" ===
+" === Rainbow
+" ===
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
 " ===
 " === MarkdownPreview
