@@ -138,6 +138,7 @@ noremap <silent><LEADER><CR> :nohlsearch<CR>
 
 "open a terminal windownoremap <LEADER>/ :set splitbelow<CR>:sp<CR>:res -6:<CR>term<CR>
 noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:res -5<CR>:term<CR>i
+
 "edit config file anywhere
 noremap <LEADER>e :tabe<CR>:e ~/.config/nvim/init.vim<CR>
 noremap <LEADER>ra :tabe<CR>:e ~/.config/ranger/rc.conf<CR>
@@ -353,12 +354,12 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 " coc-snippets
-"imap <C-l> <Plug>(coc-snippets-expand)
+imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-e> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-e>'
 let g:coc_snippet_prev = '<c-w>'
 imap <C-e> <Plug>(coc-snippets-expand-jump)
-
+let g:snips_author = 'Shaobo Zhang'
 
 " ===
 " === Vista.vim
@@ -462,6 +463,27 @@ let g:VM_maps["Redo"]               = '<C-r>'
 " ===
 let g:undotree_DiffAutoOpen = 0
 map L :UndotreeToggle<CR>
+
+
+" ===
+" === Terminal Colors
+" ===
+
+let g:terminal_color_0  = '#000000'
+let g:terminal_color_1  = '#FF5555'
+let g:terminal_color_2  = '#50FA7B'
+let g:terminal_color_3  = '#F1FA8C'
+let g:terminal_color_4  = '#BD93F9'
+let g:terminal_color_5  = '#FF79C6'
+let g:terminal_color_6  = '#8BE9FD'
+let g:terminal_color_7  = '#BFBFBF'
+let g:terminal_color_8  = '#4D4D4D'
+let g:terminal_color_9  = '#FF6E67'
+let g:terminal_color_10 = '#5AF78E'
+let g:terminal_color_11 = '#F4F99D'
+let g:terminal_color_12 = '#CAA9FA'
+let g:terminal_color_13 = '#FF92D0'
+let g:terminal_color_14 = '#9AEDFE'
 
 
 " Compile function,press <F5> to run code
