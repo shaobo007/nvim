@@ -23,6 +23,7 @@ set wrap
 set linebreak
 set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
 set wildmenu
+set showcmd
 set hlsearch
 set incsearch
 set relativenumber
@@ -220,10 +221,16 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 "Plug 'tweekmonster/braceless.vim', { 'for' :['python', 'vim-plug'] }
 
+" Debugger
+"Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
+
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+"Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'vimwiki/vimwiki'
+"Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
+"Plug 'dkarter/bullets.vim'
 
 "Other useful plug
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
@@ -247,6 +254,8 @@ Plug 'makerj/vim-pdf'
 Plug 'liuchengxu/vista.vim'
 "Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
+Plug 'kshenoy/vim-signature'
+
 call plug#end()
 
 "设置主题"
@@ -336,7 +345,7 @@ nmap <silent> gr <Plug>(coc-references)
 " coc-translator
 nmap <silent><LEADER>t <Plug>(coc-translator-p)
 
-" Use K to show documentation in preview window.
+" Use <leader>d to show documentation in preview window.
 nnoremap <silent> <LEADER>d :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -364,8 +373,8 @@ let g:snips_author = 'Shaobo Zhang'
 " ===
 " === Vista.vim
 " ===
-noremap <LEADER>v :Vista!!<CR>
-noremap <c-t> :silent! Vista finder coc<CR>
+noremap <silent><LEADER>v :Vista!!<CR>
+"noremap <c-t> :silent! Vista finder coc<CR>
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive = 'coc'
 let g:vista_fzf_preview = ['right:50%']
@@ -387,9 +396,10 @@ let g:scrollstatus_size = 15
 " ===
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
-" ===
-" === MarkdownPreview
-" ===
+
+"===
+"=== MarkdownPreview
+"===
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
@@ -488,7 +498,7 @@ let g:terminal_color_14 = '#9AEDFE'
 
 " Compile function,press <F5> to run code
 " Compile function
-map <F5> :call CompileRunGcc()<CR>
+map r :call CompileRunGcc()<CR>
 func! CompileRunGcc()
   exec "w"
   if &filetype == 'c'
@@ -508,11 +518,10 @@ func! CompileRunGcc()
     :res -10
     :term python %
   elseif &filetype == 'html'
-    exec "!firefox % &"
+    exec "!chrome % &"
   elseif &filetype == 'markdown'
     exec "MarkdownPreview"
   elseif &filetype == 'vimwiki'
     exec "MarkdownPreview"
   endif
 endfunc
-set showcmd
