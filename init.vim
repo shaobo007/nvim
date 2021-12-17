@@ -105,12 +105,6 @@ noremap <LEADER><down> :res -4<CR>
 noremap <LEADER><left> :vertical resize-4<CR>
 noremap <LEADER><right> :vertical resize+4<CR>
 
-" 括号自动补全"
-inoremap ( ()<ESC>i
-inoremap [ []<ESC>i
-inoremap { {}<ESC>i
-inoremap < <><ESC>i
-
 "标签页"
 map tn :tabe<CR>
 map th :-tabnext<CR>  "标签页切换
@@ -222,7 +216,8 @@ Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-p
 "Plug 'tweekmonster/braceless.vim', { 'for' :['python', 'vim-plug'] }
 
 " Debugger
-"Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
+Plug 'puremourning/vimspector' 
+Plug 'szw/vim-maximizer'
 
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
@@ -316,6 +311,7 @@ let g:coc_global_extensions = [
 	\ 'coc-prettier',
 	\ 'coc-pyright',
 	\ 'coc-snippets',
+  \ 'coc-pairs',
 	\ 'coc-translator']
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -394,7 +390,7 @@ let g:scrollstatus_size = 15
 " ===
 " === Rainbow
 " ===
-let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+let g:rainbow_active = 0 "0 if you want to enable it later via :RainbowToggle
 
 
 "===
@@ -476,9 +472,39 @@ map L :UndotreeToggle<CR>
 
 
 " ===
+" === Vimspector
+" ===
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+" for normal mode - the word under the cursor
+nmap <Leader>di <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xmap <Leader>di <Plug>VimspectorBalloonEval
+" Set the basic sizes
+let g:vimspector_sidebar_width = 50
+let g:vimspector_code_minwidth = 85
+let g:vimspector_terminal_minwidth = 40
+"nnoremap <Leader>dl :call vimspector#Launch()<CR>
+nnoremap <Leader>dr :call vimspector#Reset()<CR>
+"nnoremap <Leader>dc :call vimspector#Continue()<CR>
+
+"nnoremap <Leader>b :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <Leader>dc :call vimspector#ClearBreakpoints()<CR>
+
+"nmap <Leader>dk <Plug>VimspectorRestart
+nmap <Leader>dh <Plug>VimspectorStepOut
+nmap <Leader>dl <Plug>VimspectorStepInto
+nmap <Leader>dj <Plug>VimspectorStepOver
+
+" ===
+" === Maximizer
+" ===
+nnoremap <silent><F3> :MaximizerToggle<CR>
+vnoremap <silent><F3> :MaximizerToggle<CR>gv
+inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
+
+" ===
 " === Terminal Colors
 " ===
-
 let g:terminal_color_0  = '#000000'
 let g:terminal_color_1  = '#FF5555'
 let g:terminal_color_2  = '#50FA7B'
@@ -515,8 +541,11 @@ func! CompileRunGcc()
   elseif &filetype == 'python'
     set splitbelow
     :sp
-    :res -10
+    :res -4
     :term python %
+    set splitright
+    :vsplit
+    :term watch -n 1 nvidia-smi
   elseif &filetype == 'html'
     exec "!chrome % &"
   elseif &filetype == 'markdown'

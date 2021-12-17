@@ -1,6 +1,7 @@
 {
   "coc.preferences.extensionUpdateCheck": "weekly",
   "python.pythonPath": "~/.myScript/env.sh",
+  "python.formatting.provider": "autopep8",
   "snippets.ultisnips.directories": [
     "$HOME/.config/nvim/UltiSnips/",
     "$HOME/.config/nvim/plugged/vim-snippets/UltiSnips/"
