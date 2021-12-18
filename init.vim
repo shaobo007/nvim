@@ -166,10 +166,14 @@ noremap \s :%s//g<left><left>
 call plug#begin('~/.config/nvim/plugged')
 "vim主题插件"
 Plug 'vim-airline/vim-airline'
-Plug 'connorholyday/vim-snazzy'
 Plug 'vim-airline/vim-airline-themes'
+
+Plug 'connorholyday/vim-snazzy'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'ayu-theme/ayu-vim'
+Plug 'dracula/vim'
+Plug 'tomasr/molokai'
+Plug 'ajmwagar/vim-deus'
+Plug 'morhetz/gruvbox'
 "Plug 'bling/vim-bufferline'
 
 " File navigation
@@ -246,13 +250,20 @@ Plug 'makerj/vim-pdf'
 Plug 'liuchengxu/vista.vim'
 "Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
-Plug 'kshenoy/vim-signature'
+"Plug 'kshenoy/vim-signature'
+Plug 'MattesGroeger/vim-bookmarks'
 
 call plug#end()
 
 "设置主题"
-let g:SnazzyTransparent = 0
+"let g:SnazzyTransparent = 1
+set background=dark
 colorscheme snazzy
+"colorscheme molokai
+"colorscheme dracula
+"colorscheme PaperColor
+"colorscheme deus
+"colorscheme gruvbox
 let g:airline_theme='dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -485,6 +496,29 @@ nmap <Leader>dj <Plug>VimspectorStepOver
 nnoremap <silent><F3> :MaximizerToggle<CR>
 vnoremap <silent><F3> :MaximizerToggle<CR>gv
 inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
+
+
+" ===
+" === vim-bookmarks
+" ===
+let g:bookmark_no_default_key_mappings = 1
+nmap mm <Plug>BookmarkToggle
+nmap mi <Plug>BookmarkAnnotate
+nmap ma <Plug>BookmarkShowAll
+nmap mh <Plug>BookmarkNext
+nmap ml <Plug>BookmarkPrev
+nmap mC <Plug>BookmarkClear
+nmap mX <Plug>BookmarkClearAll
+nmap mk <Plug>BookmarkMoveUp
+nmap mj <Plug>BookmarkMoveDown
+nmap <Leader>g <Plug>BookmarkMoveToLine
+let g:bookmark_save_per_working_dir = 1
+let g:bookmark_auto_save = 1
+let g:bookmark_highlight_lines = 1
+let g:bookmark_manage_per_buffer = 1
+let g:bookmark_center = 1
+let g:bookmark_auto_close = 1
+let g:bookmark_location_list = 1
 
 
 " ===
