@@ -175,10 +175,9 @@ Plug 'ayu-theme/ayu-vim'
 " File navigation
 "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 "Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim'
-" Taglist 显示函数列表"
-"Plug 'majutsushi/tagbar', { 'on': 'TagbarOpenAutoClose' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'kevinhwang91/rnvimr'
 
 " Auto Complete
 "Plug 'Valloric/YouCompleteMe'
@@ -209,7 +208,6 @@ Plug 'kdheepak/lazygit.nvim'
 
 " Python
 "Plug 'vim-scripts/indentpython.vim'
-"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 "Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
@@ -226,7 +224,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'f
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'vimwiki/vimwiki'
 "Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
-"Plug 'dkarter/bullets.vim'
 
 "Other useful plug
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
@@ -234,16 +231,15 @@ Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or 
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'junegunn/vim-peekaboo'
-"Plug 'voldikss/vim-translator'
 
 " Other visual enhancement
 Plug 'luochen1990/rainbow'
 "Plug 'mg979/vim-xtabline'
-Plug 'ryanoasis/vim-devicons'  "nerdtree文件类型图标
+"Plug 'ryanoasis/vim-devicons'  "nerdtree文件类型图标
 Plug 'wincent/terminus'
 
 " Vim Applications
-Plug 'itchyny/calendar.vim'
+"Plug 'itchyny/calendar.vim'
 
 "other util
 Plug 'makerj/vim-pdf'
@@ -355,11 +351,11 @@ let g:vista#renderer#icons = {
 \   "function": "\uf794",
 \   "variable": "\uf71b",
 \  }
-"function! NearestMethodOrFunction() abort
-  "return get(b:, 'vista_nearest_method_or_function', '')
-"endfunction
-"set statusline+=%{NearestMethodOrFunction()}
-"autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+set statusline+=%{NearestMethodOrFunction()}
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 let g:scrollstatus_size = 15
 
@@ -414,12 +410,22 @@ let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
 
 
 " ===
+" === FZF
+" ===
+let g:fzf_preview_window = 'right:60%'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.85 } }
+noremap <silent><LEADER>f  :Files<CR>
+noremap <silent><LEADER>F :History<CR>
+
+
+" ===
 " === vim-indent-guide
 " ===
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_color_change_percent = 1
+
 
 " ===
 " === vim-visual-multi
@@ -472,12 +478,39 @@ nmap <Leader>dh <Plug>VimspectorStepOut
 nmap <Leader>dl <Plug>VimspectorStepInto
 nmap <Leader>dj <Plug>VimspectorStepOver
 
+
 " ===
 " === Maximizer
 " ===
 nnoremap <silent><F3> :MaximizerToggle<CR>
 vnoremap <silent><F3> :MaximizerToggle<CR>gv
 inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
+
+
+" ===
+" === rnvimr
+" ===
+let g:rnvimr_ex_enable = 1
+let g:rnvimr_pick_enable = 1
+let g:rnvimr_draw_border = 0
+" let g:rnvimr_bw_enable = 1
+highlight link RnvimrNormal CursorLine
+nnoremap <silent>ra :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
+let g:rnvimr_action = {
+            \ '<C-t>': 'NvimEdit tabedit',
+            \ '<C-x>': 'NvimEdit split',
+            \ '<C-v>': 'NvimEdit vsplit',
+            \ 'gw': 'JumpNvimCwd',
+            \ 'yw': 'EmitRangerCwd'
+            \ }
+let g:rnvimr_layout = { 'relative': 'editor',
+            \ 'width': &columns,
+            \ 'height': &lines,
+            \ 'col': 0,
+            \ 'row': 0,
+            \ 'style': 'minimal' }
+let g:rnvimr_presets = [{'width': 0.8, 'height': 0.8}]
+
 
 " ===
 " === Terminal Colors
