@@ -173,8 +173,8 @@ Plug 'ayu-theme/ayu-vim'
 "Plug 'bling/vim-bufferline'
 
 " File navigation
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+"Plug 'Xuyuanp/nerdtree-git-plugin'
 "Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 "Plug 'junegunn/fzf.vim'
 " Taglist 显示函数列表"
@@ -186,6 +186,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "Error checking
 Plug 'vim-autoformat/vim-autoformat'
+
 "Undo Tree
 Plug 'mbbill/undotree/'
 
@@ -254,49 +255,21 @@ Plug 'kshenoy/vim-signature'
 call plug#end()
 
 "设置主题"
-let g:SnazzyTransparent = 1
+let g:SnazzyTransparent = 0
 colorscheme snazzy
 let g:airline_theme='dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#buffer_nr_show = 0
 
-" ===
-" === NERDTree
-" ===
-map <silent>tt :NERDTreeToggle<CR>
-"let NERDTreeMapOpenExpl = ""
-"let NERDTreeMapUpdir = ""
-let NERDTreeMapUpdirKeepOpen = "l"
-let NERDTreeMapOpenSplit = ""
-let NERDTreeOpenVSplit = ""
-let NERDTreeMapActivateNode = "i"
-let NERDTreeMapOpenInTab = "o"
-let NERDTreeMapPreview = ""
-let NERDTreeMapCloseDir = "n"
-let NERDTreeMapChangeRoot = "y"
 
 " ==
 " == python-format
 " ==
-"let g:formatter_yapf_style = 'google'
-"noremap <F3> :Autoformat<CR>
-"autocmd FileType vim,tex,markdown let b:autoformat_autoindent=0
+let g:formatter_yapf_style = 'google'
+noremap <LEADER>f :Autoformat<CR>
+autocmd FileType vim,tex,markdown let b:autoformat_autoindent=0
 
-" ==
-" == NERDTree-git
-" ==
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-  \ "Modified"  : "✹",
-  \ "Staged"    : "✚",
-  \ "Untracked" : "✭",
-  \ "Renamed"   : "➜",
-  \ "Unmerged"  : "═",
-  \ "Deleted"   : "✖",
-  \ "Dirty"     : "✗",
-  \ "Clean"     : "✔︎",
-  \ "Unknown"   : "?"
-    \ }
 
 " ===
 " === COC
@@ -305,6 +278,7 @@ let g:coc_global_extensions = [
   \ 'coc-vimlsp',
   \ 'coc-marketplace',
   \ 'coc-json',
+  \ 'coc-explorer',
   \ 'coc-jedi',
 	\ 'coc-diagnostic',
 	\ 'coc-gitignore',
@@ -365,6 +339,8 @@ let g:coc_snippet_next = '<c-e>'
 let g:coc_snippet_prev = '<c-w>'
 imap <C-e> <Plug>(coc-snippets-expand-jump)
 let g:snips_author = 'Shaobo Zhang'
+nmap <silent>tt :CocCommand explorer<CR>
+
 
 " ===
 " === Vista.vim
@@ -390,7 +366,7 @@ let g:scrollstatus_size = 15
 " ===
 " === Rainbow
 " ===
-let g:rainbow_active = 0 "0 if you want to enable it later via :RainbowToggle
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
 
 "===
@@ -463,6 +439,7 @@ let g:VM_maps['Remove Region']      = 'q'
 let g:VM_maps['Skip Region']        = '<c-n>'
 "let g:VM_maps["Undo"]               = 'l'
 let g:VM_maps["Redo"]               = '<C-r>'
+
 
 " ===
 " === Undotree
