@@ -275,7 +275,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 0
 " == python-format
 " ==
 let g:formatter_yapf_style = 'google'
-noremap <LEADER>f :Autoformat<CR>
+noremap \f :Autoformat<CR>
 autocmd FileType vim,tex,markdown let b:autoformat_autoindent=0
 
 
@@ -324,7 +324,7 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <silent><LEADER>t <Plug>(coc-translator-p)
 
 " Use <leader>d to show documentation in preview window.
-nnoremap <silent> <LEADER>d :call <SID>show_documentation()<CR>
+nnoremap <silent> <LEADER>sd :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
  if (index(['vim','help'], &filetype) >= 0)
@@ -338,8 +338,8 @@ endfunction
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+"xmap <leader>fs  <Plug>(coc-format-selected)
+"nmap <leader>fs  <Plug>(coc-format-selected)
 " coc-snippets
 imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-e> <Plug>(coc-snippets-select)
