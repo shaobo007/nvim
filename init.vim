@@ -287,7 +287,9 @@ let g:coc_global_extensions = [
   \ 'coc-marketplace',
   \ 'coc-json',
   \ 'coc-explorer',
+  \ 'coc-clangd',
   \ 'coc-jedi',
+  \ 'coc-pydocstring',
 	\ 'coc-diagnostic',
 	\ 'coc-gitignore',
 	\ 'coc-prettier',
@@ -349,6 +351,9 @@ imap <C-e> <Plug>(coc-snippets-expand-jump)
 let g:snips_author = 'Shaobo Zhang'
 nmap <silent>tt :CocCommand explorer<CR>
 
+nmap <silent> ga <Plug>(coc-codeaction-line)
+xmap <silent> ga <Plug>(coc-codeaction-selected)
+nmap <silent> gA <Plug>(coc-codeaction)
 
 " ===
 " === Vista.vim
@@ -549,7 +554,7 @@ let g:rnvimr_pick_enable = 1
 let g:rnvimr_draw_border = 0
 " let g:rnvimr_bw_enable = 1
 highlight link RnvimrNormal CursorLine
-nnoremap <silent>ra :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
+nnoremap <silent><C-t> :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
 let g:rnvimr_action = {
             \ '<C-t>': 'NvimEdit tabedit',
             \ '<C-x>': 'NvimEdit split',
