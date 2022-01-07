@@ -142,7 +142,7 @@ noremap <LEADER>rc :tabe<CR>:e ~/.config/fish/config.fish<CR>
 " Press space twice to jump to the next '<+++>' and edit it
 noremap <LEADER>z <Esc>/<+++><CR>:nohlsearch<CR>c5l
 
-" Spelling Check with <space>sc
+" Spelling Check with <space>ss
 map <LEADER>ss :set spell!<CR>
 noremap <C-x> ea<C-x>s
 inoremap <C-x> <Esc>ea<C-x>s
@@ -452,7 +452,7 @@ let g:fzf_preview_window = 'right:60%'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.85 } }
 noremap <silent><LEADER>f  :Files<CR>
 noremap <silent><LEADER>F :History<CR>
-
+noremap <silent><LEADER>A :Ag<CR>
 
 " ===
 " === vim-indent-guide
@@ -623,3 +623,5 @@ func! CompileRunGcc()
     exec "MarkdownPreview"
   endif
 endfunc
+"Update binds when sxhkdrc is updated
+autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
