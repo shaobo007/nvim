@@ -156,9 +156,6 @@ noremap <LEADER>b :q<CR>:q<CR>
 imap <C-c> <Esc>zza
 nmap <C-c> zz
 
-" Auto change directory to current dir
-autocmd BufEnter * silent! lcd %:p:h
-
 " find and replace
 noremap \s :%s//g<left><left>
 
@@ -216,7 +213,7 @@ Plug 'kdheepak/lazygit.nvim'
 Plug 'honza/vim-snippets'
 "Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
+"Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 "Plug 'tweekmonster/braceless.vim', { 'for' :['python', 'vim-plug'] }
 
 " Debugger
@@ -224,8 +221,10 @@ Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
 
 " Markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
-"Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
+"Plug 'iamcco/mathjax-support-for-mkdp'
+"Plug 'iamcco/markdown-preview.vim'
+"Plug 'iamcco/makdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'vimwiki/vimwiki'
 "Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
@@ -401,31 +400,42 @@ nnoremap H :GitGutterPreviewHunk<CR>
 nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
 nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 
-"===
-"=== MarkdownPreview
-"===
-let g:mkdp_auto_start = 0
-let g:mkdp_auto_close = 1
-let g:mkdp_refresh_slow = 0
-let g:mkdp_command_for_global = 0
-let g:mkdp_open_to_the_world = 0
-let g:mkdp_open_ip = ''
-let g:mkdp_browser = 'google-chrome-stable'
-let g:mkdp_echo_preview_url = 0
-let g:mkdp_browserfunc = ''
-let g:mkdp_preview_options = {
-  \ 'mkit': {},
-  \ 'katex': {},
-  \ 'uml': {},
-  \ 'maid': {},
-  \ 'disable_sync_scroll': 0,
-  \ 'sync_scroll_type': 'middle',
-  \ 'hide_yaml_meta': 1
-    \ }
-let g:mkdp_markdown_css = ''
-let g:mkdp_highlight_css = ''
-let g:mkdp_port = ''
-let g:mkdp_page_title = '「${name}」'
+" ===
+" === vim-instant-markdown
+" ===
+let g:instant_markdown_slow = 0
+let g:instant_markdown_autostart = 0
+" let g:instant_markdown_open_to_the_world = 1
+" let g:instant_markdown_allow_unsafe_content = 1
+" let g:instant_markdown_allow_external_content = 0
+let g:instant_markdown_mathjax = 1
+"let g:instant_markdown_autoscroll = 1
+
+""===
+""=== MarkdownPreview
+""===
+"let g:mkdp_auto_start = 0
+"let g:mkdp_auto_close = 1
+"let g:mkdp_refresh_slow = 0
+"let g:mkdp_command_for_global = 0
+"let g:mkdp_open_to_the_world = 0
+"let g:mkdp_open_ip = ''
+"let g:mkdp_browser = 'google-chrome-stable'
+"let g:mkdp_echo_preview_url = 0
+"let g:mkdp_browserfunc = ''
+"let g:mkdp_preview_options = {
+  "\ 'mkit': {},
+  "\ 'katex': {},
+  "\ 'uml': {},
+  "\ 'maid': {},
+  "\ 'disable_sync_scroll': 0,
+  "\ 'sync_scroll_type': 'middle',
+  "\ 'hide_yaml_meta': 1
+    "\ }
+"let g:mkdp_markdown_css = ''
+"let g:mkdp_highlight_css = ''
+"let g:mkdp_port = ''
+"let g:mkdp_page_title = '「${name}」'
 
 source ~/.config/nvim/md-snips.vim
 autocmd BufRead,BufNewFile *.md setlocal spell
@@ -618,10 +628,13 @@ func! CompileRunGcc()
   elseif &filetype == 'html'
     exec "!chrome % &"
   elseif &filetype == 'markdown'
-    exec "MarkdownPreview"
+    exec "InstantMarkdownPreview"
   elseif &filetype == 'vimwiki'
-    exec "MarkdownPreview"
+    exec "InstantMarkdownPreview"
   endif
 endfunc
+
+" Auto change directory to current dir
+autocmd BufEnter * silent! lcd %:p:h
 "Update binds when sxhkdrc is updated
 autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
