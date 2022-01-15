@@ -173,6 +173,10 @@ Plug 'ajmwagar/vim-deus'
 Plug 'morhetz/gruvbox'
 "Plug 'bling/vim-bufferline'
 
+" Treesitter
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
+
 " File navigation
 "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 "Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -270,6 +274,20 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#buffer_nr_show = 0
 
 
+" ===
+" === nvim-treesitter
+" ===
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  -- one of "all", "language", or a list of languages
+  ensure_installed = {"typescript", "python", "java", "c", "cpp", "bash"},
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { "rust" },  -- list of language that will be disabled
+  },
+}
+EOF
+
 " ==
 " == python-format
 " ==
@@ -277,6 +295,11 @@ let g:formatter_yapf_style = 'google'
 noremap \f :Autoformat<CR>
 autocmd FileType vim,tex,markdown let b:autoformat_autoindent=0
 
+" ==
+" == python-format
+" ==
+let g:Hexokinase_highlighters = ['backgroundfull']
+let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla'
 
 " ===
 " === COC
@@ -291,7 +314,6 @@ let g:coc_global_extensions = [
   \ 'coc-pydocstring',
 	\ 'coc-diagnostic',
 	\ 'coc-gitignore',
-	\ 'coc-prettier',
 	\ 'coc-pyright',
 	\ 'coc-snippets',
   \ 'coc-pairs',
