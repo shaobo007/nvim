@@ -27,7 +27,6 @@
     "value": "\uf89f",
     "variable": "\ue71b"
   },
-  "diagnostic.signOffset": 1,
   "diagnostic.errorSign": "\uf467",
   "diagnostic.warningSign": "\uf071",
   "diagnostic.infoSign": "\uf129",
@@ -37,7 +36,6 @@
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualTextPrefix": " ❯❯❯ ",
   "diagnostic.virtualText": false,
-
   "explorer.width": 32,
   "explorer.quitOnOpen": true,
   "explorer.sources": [
@@ -53,7 +51,7 @@
   "explorer.file.column.indent.indentLine": false,
   "explorer.file.showHiddenFiles": false,
   "explorer.icon.enableNerdfont": true,
-  "explorer.file.column.git.showIgnored": true,
+  "explorer.file.git.showUntrackedFiles": true,
   "explorer.keyMappingMode": "none",
   "explorer.buffer.showHiddenBuffers": false,
   "explorer.keyMappings.global": {
@@ -63,10 +61,25 @@
     "<tab>": "actionMenu",
     "gl": "expandRecursive",
     "gh": "collapseRecursive",
-    "i": ["wait", "expandable?", "expand", "open"],
-    "<cr>": ["wait", "expandable?", "cd", "open"],
+    "i": [
+      "wait",
+      "expandable?",
+      "expand",
+      "open"
+    ],
+    "<cr>": [
+      "wait",
+      "expandable?",
+      "cd",
+      "open"
+    ],
     "I": "open:vsplit",
-    "o": ["wait", "expanded?", "collapse", "expand"],
+    "o": [
+      "wait",
+      "expanded?",
+      "collapse",
+      "expand"
+    ],
     "O": "open:tab",
     "S": "open:split",
     "E": "open:vsplit",
@@ -106,7 +119,5 @@
   "snippets.ultisnips.directories": [
     "$HOME/.config/nvim/UltiSnips/",
     "$HOME/.config/nvim/plugged/vim-snippets/UltiSnips/"
-  ],
-  "coc.preferences.formatOnSaveFiletypes": ["javascript", "html", "json"],
-  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd"
+  ]
 }
