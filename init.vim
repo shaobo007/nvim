@@ -221,7 +221,7 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 "Plug 'tweekmonster/braceless.vim', { 'for' :['python', 'vim-plug'] }
 
 " Debugger
-Plug 'puremourning/vimspector' 
+Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
 
 " Markdown
@@ -654,6 +654,16 @@ func! CompileRunGcc()
     exec "InstantMarkdownPreview"
   endif
 endfunc
+fun! TrimWhitespace()
+  let l:save = winsaveview()
+  keeppatterns %s/\s\+$//e
+  call winrestview(l:save)
+endfun
+
+augroup THE_PREMEAGEN
+  autocmd!
+  autocmd BufWritePre * :call TrimWhitespace()
+augroup END
 
 " Auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
