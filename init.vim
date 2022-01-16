@@ -132,7 +132,7 @@ noremap tx :r !figlet
 noremap <silent><LEADER><CR> :nohlsearch<CR>
 
 "open a terminal windownoremap <LEADER>/ :set splitbelow<CR>:sp<CR>:res -6:<CR>term<CR>
-noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:res -5<CR>:term<CR>i
+noremap <LEADER>/ :set splitbelow<CR>:sp<CR>:res -10<CR>:term<CR>i
 
 "edit config file anywhere
 noremap <LEADER>e :tabe<CR>:e ~/.config/nvim/init.vim<CR>
@@ -243,7 +243,7 @@ Plug 'junegunn/vim-peekaboo'
 " Other visual enhancement
 Plug 'luochen1990/rainbow'
 "Plug 'mg979/vim-xtabline'
-"Plug 'ryanoasis/vim-devicons'  "nerdtree文件类型图标
+Plug 'ryanoasis/vim-devicons'  "nerdtree文件类型图标
 Plug 'wincent/terminus'
 
 " Vim Applications
@@ -317,6 +317,7 @@ let g:coc_global_extensions = [
 	\ 'coc-pyright',
 	\ 'coc-snippets',
   \ 'coc-pairs',
+  \ 'coc-clangd',
 	\ 'coc-translator']
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -526,6 +527,7 @@ map L :UndotreeToggle<CR>
 " === Vimspector
 " ===
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools' ]
 " for normal mode - the word under the cursor
 nmap <Leader>di <Plug>VimspectorBalloonEval
 " for visual mode, the visually selected text
@@ -642,11 +644,8 @@ func! CompileRunGcc()
   elseif &filetype == 'python'
     set splitbelow
     :sp
-    :res -4
+    :res -10
     :term python %
-    set splitright
-    :vsplit
-    :term watch -n 1 nvidia-smi
   elseif &filetype == 'html'
     exec "!chrome % &"
   elseif &filetype == 'markdown'
