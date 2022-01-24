@@ -288,6 +288,7 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
+
 " ==
 " == python-format
 " ==
@@ -295,11 +296,13 @@ let g:formatter_yapf_style = 'google'
 noremap \f :Autoformat<CR>
 autocmd FileType vim,tex,markdown let b:autoformat_autoindent=0
 
+
 " ==
 " == python-format
 " ==
 let g:Hexokinase_highlighters = ['backgroundfull']
 let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla'
+
 
 " ===
 " === COC
@@ -333,6 +336,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
 inoremap <silent><expr> <C-o> coc#refresh()
 "jump to the next or previous error
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
@@ -434,34 +438,6 @@ let g:instant_markdown_autostart = 0
 let g:instant_markdown_mathjax = 1
 "let g:instant_markdown_autoscroll = 1
 
-""===
-""=== MarkdownPreview
-""===
-"let g:mkdp_auto_start = 0
-"let g:mkdp_auto_close = 1
-"let g:mkdp_refresh_slow = 0
-"let g:mkdp_command_for_global = 0
-"let g:mkdp_open_to_the_world = 0
-"let g:mkdp_open_ip = ''
-"let g:mkdp_browser = 'google-chrome-stable'
-"let g:mkdp_echo_preview_url = 0
-"let g:mkdp_browserfunc = ''
-"let g:mkdp_preview_options = {
-  "\ 'mkit': {},
-  "\ 'katex': {},
-  "\ 'uml': {},
-  "\ 'maid': {},
-  "\ 'disable_sync_scroll': 0,
-  "\ 'sync_scroll_type': 'middle',
-  "\ 'hide_yaml_meta': 1
-    "\ }
-"let g:mkdp_markdown_css = ''
-"let g:mkdp_highlight_css = ''
-"let g:mkdp_port = ''
-"let g:mkdp_page_title = '「${name}」'
-
-source ~/.config/nvim/md-snips.vim
-autocmd BufRead,BufNewFile *.md setlocal spell
 " ===
 " === Python-syntax
 " ===
@@ -588,7 +564,7 @@ let g:rnvimr_pick_enable = 1
 let g:rnvimr_draw_border = 0
 " let g:rnvimr_bw_enable = 1
 highlight link RnvimrNormal CursorLine
-nnoremap <silent><C-t> :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
+nnoremap <silent>; :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
 let g:rnvimr_action = {
             \ '<C-t>': 'NvimEdit tabedit',
             \ '<C-x>': 'NvimEdit split',
@@ -654,6 +630,8 @@ func! CompileRunGcc()
     exec "InstantMarkdownPreview"
   endif
 endfunc
+
+"auto remove residual blankspace
 fun! TrimWhitespace()
   let l:save = winsaveview()
   keeppatterns %s/\s\+$//e
@@ -665,6 +643,8 @@ augroup THE_PREMEAGEN
   autocmd BufWritePre * :call TrimWhitespace()
 augroup END
 
+source ~/.config/nvim/md-snips.vim
+autocmd BufRead,BufNewFile *.md setlocal spell
 " Auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
 "Update binds when sxhkdrc is updated
