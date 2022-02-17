@@ -89,10 +89,10 @@ nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
 
 "分屏操作"
-map sl :set splitright<CR>:vsplit<CR>
-map sh :set nosplitright<CR>:vsplit<CR>
-map sk :set nosplitbelow<CR>:split<CR>
-map sj :set splitbelow<CR>:split<CR>
+map <silent>sl :set splitright<CR>:vsplit<CR>
+map <silent>sh :set nosplitright<CR>:vsplit<CR>
+map <silent>sk :set nosplitbelow<CR>:split<CR>
+map <silent>sj :set splitbelow<CR>:split<CR>
 "分屏之间切换
 noremap <LEADER>l <C-w>l
 noremap <LEADER>k <C-w>k
@@ -180,7 +180,6 @@ Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " File navigation
 "Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 "Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kevinhwang91/rnvimr'
 
@@ -237,6 +236,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-surround' " type ysks' to wrap the word with '' or type cs'` to change 'word' to `word`
 Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or type i) i] i} ip
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
+Plug 'theniceboy/antovim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'junegunn/vim-peekaboo'
 
@@ -320,8 +320,7 @@ let g:coc_global_extensions = [
 	\ 'coc-pyright',
 	\ 'coc-snippets',
   \ 'coc-pairs',
-  \ 'coc-clangd',
-	\ 'coc-translator']
+  \ 'coc-clangd']
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -348,8 +347,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-" coc-translator
-nmap <silent><LEADER>t <Plug>(coc-translator-p)
 
 " Use <leader>d to show documentation in preview window.
 nnoremap <silent> <LEADER>sd :call <SID>show_documentation()<CR>
@@ -528,9 +525,9 @@ nmap <Leader>dj <Plug>VimspectorStepOver
 " ===
 " === Maximizer
 " ===
-nnoremap <silent><F3> :MaximizerToggle<CR>
-vnoremap <silent><F3> :MaximizerToggle<CR>gv
-inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
+nnoremap <silent><C-a> :MaximizerToggle<CR>
+vnoremap <silent><C-a> :MaximizerToggle<CR>gv
+inoremap <silent><C-a> <C-o>:MaximizerToggle<CR>
 
 
 " ===
@@ -643,9 +640,31 @@ augroup THE_PREMEAGEN
   autocmd BufWritePre * :call TrimWhitespace()
 augroup END
 
+" Function for toggling the bottom statusbar:
+let s:hidden_all = 1
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+    endif
+endfunction
+nnoremap <C-h> :call ToggleHiddenAll()<CR>
 source ~/.config/nvim/md-snips.vim
+
 autocmd BufRead,BufNewFile *.md setlocal spell
+" When shortcut files are updated, renew bash and ranger configs with new material:
+autocmd BufWritePost bm-files,bm-dirs !shortcuts
 " Auto change directory to current dir
 autocmd BufEnter * silent! lcd %:p:h
 "Update binds when sxhkdrc is updated
-autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
+" Recompile dwmblocks on config edit.
+autocmd BufWritePost ~/.local/src/dwmblocks/config.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid -f dwmblocks }
