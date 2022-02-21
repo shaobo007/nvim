@@ -111,8 +111,8 @@ map th :-tabnext<CR>  "标签页切换
 map tl :+tabnext<CR>
 map tmh :-tabmove<CR>  "移动标签页
 map tml :+tabmove<CR>
-nnoremap <Tab> :tabprev<CR>
-nnoremap <S-Tab> :tabnext<CR>
+nnoremap <Tab> :tabnext<CR>
+nnoremap <S-Tab> :tabprev<CR>
 
 
 "faster line navigation"
