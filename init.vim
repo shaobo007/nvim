@@ -47,7 +47,7 @@ set softtabstop=2
 
 set list
 set listchars=tab:▸\ ,trail:▫
-set scrolloff=8
+set scrolloff=10
 set tw=0
 set indentexpr=
 set backspace=indent,eol,start
@@ -316,6 +316,7 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-explorer',
   \ 'coc-clangd',
+  \ 'coc-leetcode',
   \ 'coc-jedi',
   \ 'coc-pydocstring',
 	\ 'coc-diagnostic',
