@@ -106,13 +106,13 @@ noremap <LEADER><left> :vertical resize-4<CR>
 noremap <LEADER><right> :vertical resize+4<CR>
 
 "标签页"
-map tn :tabe<CR>
-map th :-tabnext<CR>  "标签页切换
-map tl :+tabnext<CR>
+map <silent>tn :tabe<CR>
+map <silent>th :-tabnext<CR>  "标签页切换
+map <silent>tl :+tabnext<CR>
 map tmh :-tabmove<CR>  "移动标签页
 map tml :+tabmove<CR>
-nnoremap <Tab> :tabnext<CR>
-nnoremap <S-Tab> :tabprev<CR>
+nnoremap <silent><Tab> :tabnext<CR>
+nnoremap <silent><S-Tab> :tabprev<CR>
 
 
 "faster line navigation"
@@ -626,7 +626,7 @@ func! CompileRunGcc()
     set splitbelow
     :sp
     :res -10
-    :term python %
+    :term time python %
   elseif &filetype == 'html'
     exec "!chrome % &"
   elseif &filetype == 'markdown'
