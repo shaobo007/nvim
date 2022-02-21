@@ -13,8 +13,16 @@ int main()
 
 endsnippet
 
-#cpp clashh snippets
-snippet class "c++ class snippets"
+#cpp class snippets
+snippet class_simple "c++ class snippets"
+class ${1:ClassName}
+{
+  public:
+		${2}
+};
+endsnippet
+
+snippet class_init "c++ class snippets with init func"
 class ${1:ClassName}
 {
   public:
@@ -29,3 +37,10 @@ class ${1:ClassName}
 };
 endsnippet
 
+snippet class_son "c++ class snippets with heir"
+class ${1:Son}:${2:heirType} ${3:Base}
+{
+  public:
+		${4}
+};
+endsnippet
