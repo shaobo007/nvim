@@ -111,6 +111,9 @@ map th :-tabnext<CR>  "标签页切换
 map tl :+tabnext<CR>
 map tmh :-tabmove<CR>  "移动标签页
 map tml :+tabmove<CR>
+nnoremap <Tab> :tabprev<CR>
+nnoremap <S-Tab> :tabnext<CR>
+
 
 "faster line navigation"
 "word
@@ -320,7 +323,8 @@ let g:coc_global_extensions = [
 	\ 'coc-pyright',
 	\ 'coc-snippets',
   \ 'coc-pairs',
-  \ 'coc-clangd']
+  \ 'coc-clangd',
+  \ 'coc-translator']
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -378,6 +382,10 @@ nmap <silent> ga <Plug>(coc-codeaction-line)
 xmap <silent> ga <Plug>(coc-codeaction-selected)
 nmap <silent> gA <Plug>(coc-codeaction)
 
+" NOTE: do NOT use `nore` mappings
+" popup
+nmap <Leader>t <Plug>(coc-translator-p)
+vmap <Leader>t <Plug>(coc-translator-pv)
 " ===
 " === Vista.vim
 " ===
