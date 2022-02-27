@@ -2,10 +2,10 @@
 snippet cpp "c++ start snippets"
 #include <iostream>
 #include <string>
+${1}
 
 using namespace std;
 
-${1}
 int main()
 {
   return 0;
@@ -20,6 +20,7 @@ class ${1:ClassName}
   public:
 		${2}
 };
+
 endsnippet
 
 snippet class_init "c++ class snippets with init func"
@@ -30,17 +31,39 @@ class ${1:ClassName}
     {
 			${3}
     }
-	private:
-
-	protected:
 
 };
+
 endsnippet
 
 snippet class_son "c++ class snippets with heir"
-class ${1:Son}:${2:heirType} ${3:Base}
+class ${1:Son}:${2:public} ${3:Base}
 {
   public:
 		${4}
 };
+
+endsnippet
+
+snippet outFunc "function out of the class"
+${1:void} ${2:ClassName}::${3:functionName}()
+{
+  ${4}
+}
+
+endsnippet
+
+snippet hpp "cpp snippets for h file"
+#pragma once
+#include <iostream>
+#include <string>
+using namespace std;
+
+class ${1:className}
+{
+	public:
+		${1:className}();
+		~${1:className}();
+};
+
 endsnippet

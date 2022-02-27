@@ -128,6 +128,9 @@ vnoremap Y "+y
 noremap P "+gp
 inoremap <silent><C-v> <Esc>"+gpa
 
+" Select all
+nmap ss gg<S-v>G
+
 "figlet"
 noremap tx :r !figlet
 
@@ -222,6 +225,9 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 "Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 "Plug 'tweekmonster/braceless.vim', { 'for' :['python', 'vim-plug'] }
 
+"C++,C
+Plug 'rhysd/vim-clang-format'
+
 " Debugger
 Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
@@ -241,7 +247,7 @@ Plug 'gcmt/wildfire.vim' " in Visual mode, type i' to select all text in '', or 
 Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
 Plug 'theniceboy/antovim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'junegunn/vim-peekaboo'
+"Plug 'junegunn/vim-peekaboo'
 
 " Other visual enhancement
 Plug 'luochen1990/rainbow'
@@ -255,7 +261,7 @@ Plug 'wincent/terminus'
 "other util
 Plug 'makerj/vim-pdf'
 Plug 'liuchengxu/vista.vim'
-"Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-startify'
 "Plug 'kshenoy/vim-signature'
 Plug 'MattesGroeger/vim-bookmarks'
@@ -374,7 +380,7 @@ nmap <leader>rn <Plug>(coc-rename)
 imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-e> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-e>'
-let g:coc_snippet_prev = '<c-w>'
+let g:coc_snippet_prev = '<c-n>'
 imap <C-e> <Plug>(coc-snippets-expand-jump)
 let g:snips_author = 'Shaobo Zhang'
 nmap <silent>tt :CocCommand explorer<CR>
@@ -445,10 +451,51 @@ let g:instant_markdown_mathjax = 1
 "let g:instant_markdown_autoscroll = 1
 
 " ===
+" === vim-table-mode
+" ===
+noremap <LEADER>tm :TableModeToggle<CR>
+"let g:table_mode_disable_mappings = 1
+"let g:table_mode_cell_text_object_i_map = 'k<Bar>'
+
+" ===
 " === Python-syntax
 " ===
 "let g:python_highlight_all = 1
 
+" ===
+" === clang-format
+" ===
+let g:clang_format#style_options = {
+            \ "AccessModifierOffset" : -4,
+            \ "AllowShortIfStatementsOnASingleLine" : "true",
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "BreakBeforeBraces" : "Stroustrup",
+            \ "Standard" : "C++11"}
+
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" Toggle auto formatting:
+nmap <Leader>C :ClangFormatAutoToggle<CR>
+"autocmd FileType c,cpp ClangFormatAutoEnable
+
+" ===
+" === goyo
+" ===
+map , :Goyo<CR>
+function! s:goyo_enter()
+  set number
+  set relativenumber
+  set scrolloff=5
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  set scrolloff=10
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " ===
 " === lazygit.nvim
