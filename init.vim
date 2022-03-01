@@ -380,7 +380,7 @@ nmap <leader>rn <Plug>(coc-rename)
 imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-e> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-e>'
-let g:coc_snippet_prev = '<c-n>'
+let g:coc_snippet_prev = '<c-w>'
 imap <C-e> <Plug>(coc-snippets-expand-jump)
 let g:snips_author = 'Shaobo Zhang'
 nmap <silent>tt :CocCommand explorer<CR>
@@ -449,6 +449,7 @@ let g:instant_markdown_autostart = 0
 " let g:instant_markdown_allow_external_content = 0
 let g:instant_markdown_mathjax = 1
 "let g:instant_markdown_autoscroll = 1
+let g:instant_markdown_browser = "surf"
 
 " ===
 " === vim-table-mode
@@ -660,11 +661,16 @@ map r :call CompileRunGcc()<CR>
 func! CompileRunGcc()
   exec "w"
   if &filetype == 'c'
-    exec "!g++ % -o %<"
-    exec "!time ./%<"
+    set splitbelow
+    :sp
+    :res -5
+    term gcc -ansi -Wall % -o %< && time ./%
   elseif &filetype == 'cpp'
-    exec "!g++ % -o %<"
-    exec "!time ./%<"
+    set splitbelow
+    exec "!g++ -std=c++11 % -Wall -o %<"
+    :sp
+    :res -15
+    :term ./%<
   elseif &filetype == 'java'
     exec "!javac %"
     exec "!time java %<"
@@ -676,7 +682,7 @@ func! CompileRunGcc()
     :res -10
     :term time python %
   elseif &filetype == 'html'
-    exec "!chrome % &"
+    exec "!surf % &"
   elseif &filetype == 'markdown'
     exec "InstantMarkdownPreview"
   elseif &filetype == 'vimwiki'
