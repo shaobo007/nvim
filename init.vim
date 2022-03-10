@@ -126,7 +126,6 @@ noremap K 5k
 " Copy to system clipboard
 vnoremap Y "+y
 noremap P "+gp
-inoremap <silent><C-v> <Esc>"+gpa
 
 " Select all
 nmap ss gg<S-v>G
@@ -331,6 +330,7 @@ let g:coc_global_extensions = [
 	\ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-clangd',
+  \ 'coc-sh',
   \ 'coc-translator']
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -456,7 +456,7 @@ let g:instant_markdown_browser = "surf"
 " ===
 noremap <LEADER>tm :TableModeToggle<CR>
 "let g:table_mode_disable_mappings = 1
-"let g:table_mode_cell_text_object_i_map = 'k<Bar>'
+let g:table_mode_cell_text_object_i_map = 'k<Bar>'
 
 " ===
 " === Python-syntax
@@ -483,7 +483,7 @@ nmap <Leader>C :ClangFormatAutoToggle<CR>
 " ===
 " === goyo
 " ===
-map , :Goyo<CR>
+map ,g :Goyo<CR>
 function! s:goyo_enter()
   set number
   set relativenumber
@@ -667,7 +667,7 @@ func! CompileRunGcc()
     term gcc -ansi -Wall % -o %< && time ./%
   elseif &filetype == 'cpp'
     set splitbelow
-    exec "!g++ -std=c++11 % -Wall -o %<"
+    exec "!g++ % -o %<"
     :sp
     :res -15
     :term ./%<
