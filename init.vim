@@ -449,7 +449,7 @@ let g:instant_markdown_autostart = 0
 " let g:instant_markdown_allow_external_content = 0
 let g:instant_markdown_mathjax = 1
 "let g:instant_markdown_autoscroll = 1
-let g:instant_markdown_browser = "surf"
+let g:instant_markdown_browser = "setsid -f surf"
 
 " ===
 " === vim-table-mode
@@ -618,7 +618,7 @@ let g:rnvimr_pick_enable = 1
 let g:rnvimr_draw_border = 0
 " let g:rnvimr_bw_enable = 1
 highlight link RnvimrNormal CursorLine
-nnoremap <silent>; :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
+nnoremap <silent>,r :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
 let g:rnvimr_action = {
             \ '<C-t>': 'NvimEdit tabedit',
             \ '<C-x>': 'NvimEdit split',
@@ -667,7 +667,7 @@ func! CompileRunGcc()
     term gcc -ansi -Wall % -o %< && time ./%
   elseif &filetype == 'cpp'
     set splitbelow
-    exec "!g++ % -o %<"
+    exec "!g++ -std=c++11 % -Wall -o %<"
     :sp
     :res -15
     :term ./%<
